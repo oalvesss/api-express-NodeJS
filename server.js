@@ -2,9 +2,13 @@ import http from "http";
 
 const PORT = 3000;
 
+const routes = {
+    "/": "curso de Node.JS"
+};
+
 const server = http.createServer((req, res) => {
     res.writeHead(200, { "Content-Type": "text/plain" });
-    res.end("Curso de Node.JS"); 
+    res.end(routes[req.url]); 
 });
 
 server.listen(PORT, () =>{
