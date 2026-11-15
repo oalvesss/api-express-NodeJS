@@ -2,15 +2,17 @@ import express from 'express';
 
 const app = express();
 
+app.use(express.json());
+
 const livros = [
     {
         id: 1,
-        titulo: "Verety"
+        titulo: "Programador Pragmático"
     },
     {
         id: 2,
-        titulo: "Diário de um Banana"
-    }
+        titulo: "Competente o Suficiente"
+    } 
 ]
 
 app.get("/", (req, res) =>{
@@ -23,6 +25,7 @@ app.get("/livros", (req, res) =>{
 
 app.post("/livros", (req, res) => {
     livros.push(req.body);
+    res.status(201).send("Livro adicionado com sucesso!")
 });
 
 export default app;
