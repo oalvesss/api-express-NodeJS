@@ -42,6 +42,16 @@ class LivroController {
             res.status(500).json({ message: `${erro.message} - falha na atualização do livro` });
         }
     }
+        static async deletarLivro (req, res) {
+        try {
+        const id = req.params.id
+        await livro.findByIdAndDelete(id);
+        res.status(200).json({ message: "livro deletado com sucesso" });
+        } catch (erro) {
+            res.status(500).json({ message: `${erro.message} - falha para deletar o livro` });
+        }
+    }
+
 
 
 
