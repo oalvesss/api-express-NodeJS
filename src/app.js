@@ -1,5 +1,6 @@
 import express from 'express';
 import conectaMongo from './config/dbConnect.js';
+import livro from './models/Livro.js';
 
 
 const conexao = await conectaMongo();
@@ -15,30 +16,14 @@ conexao.once("open", () => {
 const app = express();
 app.use(express.json());
 
-const livros = [
-    {
-        id: 1,
-        titulo: "Programador Pragmático"
-    },
-    {
-        id: 2,
-        titulo: "Competente o Suficiente"
-    } 
-]
-
-function buscaLivro(id) {
-    return livros.findIndex(livro => {
-        return livro.id === Number(id);
-    });
-};
-
 
 app.get("/", (req, res) =>{
     res.status(200).send("Curso de Node.Js");
 });
 
-app.get("/livros", (req, res) =>{
-    res.status(200).json(livros);
+app.get("/livros", async (req, res) =>{
+    const ListaLivros = await livro.find({});
+    res.status(200).json(ListaLivros);
 });
 
 app.get("/livros/:id", (req, res) =>{

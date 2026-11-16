@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-import { required } from "nodemon/lib/config";
 
 const livrSchema = new mongoose.Schema({
     id: { type: mongoose.Schema.Types.ObjectId },
