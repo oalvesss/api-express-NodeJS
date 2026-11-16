@@ -1,7 +1,18 @@
 import express from 'express';
+import conectaMongo from './config/dbConnect.js';
+
+
+const conexao = await conectaMongo();
+
+conexao.on("error", (erro) => {
+    console.error("Erro de conexão", erro)
+});
+
+conexao.once("open", () => {
+    console.log("Conexão com o DB feita com sucesso!");
+});
 
 const app = express();
-
 app.use(express.json());
 
 const livros = [
@@ -52,25 +63,8 @@ app.delete("/livros/:id", (req, res) => {
     res.status(200).send("Livro apagado com sucesso!");
 });
 
+export default app;
 
 
 
-// export default app;
-// import { MongoClient } from 'mongodb';
 
-// const client = new MongoClient("mongodb+srv://<db_username>:<db_password>@cluster0.l3xys8e.mongodb.net/");
-
-// export async function connectToMongoDB() {
-//   try {
-//     await client.connect();
-//     console.log("You successfully connected to MongoDB!");
-//     return client;
-//   } catch (err) {
-//     console.dir(err);
-//   }
-// }
-
-// // Call this only when your application terminates
-// export async function disconnectFromMongoDB() {
-//   await client.close();
-// }
